@@ -1,8 +1,9 @@
 // import type { HttpContext } from '@adonisjs/core/http'
+import env from '#start/env'
 
 export default class UsersController {
   user = () => {
-    return { name: 'Rahul', age: '24' }
+    return { name: 'Rahul', age: '24', db: env.get('DB_DATABASE') }
   }
 
   dashboard = () => {
