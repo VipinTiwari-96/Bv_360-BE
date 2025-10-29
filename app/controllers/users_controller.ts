@@ -1,12 +1,13 @@
-// import type { HttpContext } from '@adonisjs/core/http'
-import { UserService } from '#services/user_service'
+import type { HttpContext } from '@adonisjs/core/http'
 
 export default class UsersController {
-  user = () => {
-    return UserService.getUser()
+  user = ({ auth }: HttpContext) => {
+    return auth.user
   }
 
-  dashboard = () => {
-    return { total_tasks: 100, completed_tasks: 70, remaining_tasks: 30 }
+  userDashboard = async ({ auth }: HttpContext) => {
+    const user = auth.user
+    const projects = await user?.related('projects').query()
+    return projects
   }
 }
