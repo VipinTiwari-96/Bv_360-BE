@@ -32,4 +32,10 @@ export default class AuthController {
     const token = await User.accessTokens.create(user)
     return token
   }
+
+  logout = async ({ response, auth }: HttpContext) => {
+    const user = auth.user
+    await User.accessTokens.delete(user!, user!.currentAccessToken.identifier)
+    return response.ok({ message: 'Logged out successfully.' })
+  }
 }
